@@ -21,8 +21,8 @@ read_matrix<-function() {
   #scale to 0..1
   data <-data/max(data)
   
-  #scale to 0..2*pi
-  data <- data*2*pi
+  #scale to 0..pi
+  data <- data*pi
 
   return(data)
 }
@@ -90,7 +90,9 @@ ps_model2 <- function(N = 8, avg.k = 2, gma = 3){
 #hyperbolic distance.....
 hyperbolic_dist <- function(ZI, ZJ){
   
-  delta <- pi - abs(pi - abs(ZI$theta - ZJ$theta)) # Angular separation between points
+  #delta <- pi - abs(pi - abs(ZI$theta - ZJ$theta)) # Angular separation between points
+  
+  delta <- abs(ZI$theta - ZJ$theta) #now theta is between 0..pi, delta is just the distance between
   
   d <- cosh(ZI$r)*cosh(ZJ$r) - sinh(ZI$r)*sinh(ZJ$r)*cos(delta)
   
